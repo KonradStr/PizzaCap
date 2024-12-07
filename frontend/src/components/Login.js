@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../App.css';
+import Navbar from "./Navbar";
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -24,113 +26,63 @@ function Login() {
       setError(
         error.response?.data || 'Wystąpił błąd podczas logowania.'
       );
+      document.getElementById("email").style.border = "1px solid red";
+      document.getElementById("password").style.border = "1px solid red";
     }
+
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
+
+    <div classname = "app">
+    <Navbar />
+
+    <div className = "container" >
+      <div className = "card" >
         <h2>Logowanie</h2>
         <form onSubmit={handleLogin}>
           <input
             type="text"
-            placeholder="Email"
             value={email}
+            placeholder=" "
             onChange={(e) => setEmail(e.target.value)}
-            style={styles.input}
+            className = "input"
+            id="email"
           />
+          <label form = "email" className = "form_label_login">Adres email</label>
           <input
             type="password"
-            placeholder="Hasło"
             value={password}
+            placeholder=""
             onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
+            className = "input"
+            id="password"
           />
-          <button type="submit" style={styles.submitButton}>Zaloguj</button>
+          <label form = "password" className = "form_label_passwd">Hasło</label>
+          {error && <p className = "error">{error}</p>}
+          <button type="submit" className = "submitButton" >Zaloguj</button>
         </form>
 
-        {error && <p style={styles.error}>{error}</p>}
 
-        <div style={styles.footer}>
-          <button onClick={() => navigate('/register')} style={styles.linkButton}>
+        <div className = "footer">
+          <button onClick={() => navigate('/register')} className = "linkButton">
             Nie masz konta? Zarejestruj się
+          </button>
+          <button onClick={() => navigate('/')} className = "linkButton">
+            Zapomniałem hasła
           </button>
         </div>
 
-        <div style={styles.homeButtonContainer}>
-          <button onClick={() => navigate('/')} style={styles.homeButton}>
+        <div className = "homeButtonContainer">
+          <button onClick={() => navigate('/')} className = "homeButton">
             Home
           </button>
         </div>
       </div>
     </div>
+    </div>
   );
 }
 
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f0f0',
-  },
-  card: {
-    backgroundColor: '#fff',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-    textAlign: 'center',
-    width: '400px',
-  },
-  input: {
-    width: '100%',
-    padding: '10px',
-    margin: '10px 0',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-    fontSize: '16px',
-    boxSizing: 'border-box',
-  },
-  submitButton: {
-    padding: '10px 20px',
-    backgroundColor: '#4CAF50',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width: '100%',
-    marginTop: '10px',
-  },
-  error: {
-    color: 'red',
-    marginTop: '10px',
-  },
-  footer: {
-    marginTop: '10px',
-  },
-  linkButton: {
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width: '100%',
-  },
-  homeButtonContainer: {
-    marginTop: '20px',
-    textAlign: 'center',
-  },
-  homeButton: {
-    padding: '10px 20px',
-    backgroundColor: '#4CAF50',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width: '100%',
-  },
-};
 
 export default Login;
