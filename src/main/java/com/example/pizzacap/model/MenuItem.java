@@ -4,15 +4,19 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
 @Entity
 @Table(name = "menu_items")
-public class Menu_item {
+public class MenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id")
@@ -24,12 +28,14 @@ public class Menu_item {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
-    private double price;
-
     @Column(name = "type")
     private String type;
 
-    @Column(name = "item_size")
-    private String item_size;
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL)
+    private List<MenuItemSize> sizes;
 }
+
