@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 
-const CartDropdown = ({ cart, onClearCart, onOrderSubmit }) => {
+const CartDropdown = ({ cart, onClearCart, onDeleteItem,onOrderSubmit }) => {
     return (
         <div className="cart-dropdown">
             <div className = "cart-title">

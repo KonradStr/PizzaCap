@@ -92,7 +92,7 @@ const DishList = ({onAddToCart}) =>{
         <div className="menu-grid">
             <div className="pizzas-container">
                 {pizzas.map((pizza) => (
-                    <DishCard key={pizza.menu_id} pizza={pizza} onAddToCart={onAddToCart}/>
+                    <DishCard key={pizza.menuId} pizza={pizza} onAddToCart={onAddToCart}/>
                 ))}
             </div>
         </div>

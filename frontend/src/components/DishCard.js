@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import "../App.css";
-import margherita from "./Margherita.jpg";
 
-const PizzaCard = ({ pizza, onAddToCart }) => {
-    const [selectedSize, setSelectedSize] = useState("small");
+const PizzaCard = ({pizza, onAddToCart}) => {
+    const [selectedSize, setSelectedSize] = useState(pizza.sizes[0].menuSizeId);
 
     const handleSizeChange = (e) => {
-        setSelectedSize(e.target.value);
+        setSelectedSize(Number(e.target.value));
     };
 
     const addToCart = () => {
+        const selectedPizzaSize = pizza.sizes.find(size => size.menuSizeId === selectedSize);
         const item = {
-            id: pizza.id,
+            id: pizza.menuId,
             name: pizza.name,
-            size: selectedSize,
-            price: pizza.price[selectedSize],
+            size: selectedPizzaSize.itemSize,
+            price: selectedPizzaSize.price,
         };
         onAddToCart(item);
     };
@@ -23,16 +23,20 @@ const PizzaCard = ({ pizza, onAddToCart }) => {
         <div className="pizza-card">
             <img src={"https://i.ibb.co/9NXMVtZ/Margherita.jpg"} alt={pizza.name} className="pizza-image" />
             <div className="pizza-details">
-                <h3>{pizza.menu_id}. {pizza.name}</h3>
+                <h3>{pizza.menuId}. {pizza.name}</h3>
+
                 <div className="pizza-select">
+                    <label>Wybierz rozmiar:</label>
                     <select
-                        id={`size-select-${pizza.menu_id}`}
+                        id={`size-select-${pizza.menuId}`}
                         value={selectedSize}
                         onChange={handleSizeChange}
                     >
-                        <option value="small">Mała - {pizza.price} zł</option>
-                        <option value="medium">Średnia - {pizza.price} zł</option>
-                        <option value="large">Duża - {pizza.price} zł</option>
+                        {pizza.sizes.map((size) => (
+                            <option key={size.menuSizeId} value={size.menuSizeId}>
+                                {size.itemSize} - {size.price} PLN
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <p className="pizza-description">{pizza.description}</p>

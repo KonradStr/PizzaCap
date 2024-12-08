@@ -6,7 +6,7 @@ import DishList from './DishList';
 
 const Menu = () => {
 
-    const [cart, setCart] = useState([]); // Stan koszyka
+    const [cart, setCart] = useState([]);
 
     // Funkcja dodawania do koszyka
     const addToCart = (item) => {

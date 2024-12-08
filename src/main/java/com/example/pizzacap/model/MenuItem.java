@@ -31,9 +31,8 @@ public class MenuItem {
     @Column(name = "type")
     private String type;
 
-    @Lob
     @Column(name = "image")
-    private byte[] image;
+    private String image;
 
     @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL)
     private List<MenuItemSize> sizes;

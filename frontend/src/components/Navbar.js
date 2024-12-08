@@ -10,6 +10,11 @@ const Navbar = ({cart, onOrderSubmit, setCart}) => {
         setIsCartOpen((prevState) => !prevState);
     };
 
+    const deleteItem = (index) => {
+        const newCart = cart.filter((item, i) => i !== index);
+        setCart(newCart);
+    };
+
 
     return (
         <nav className="navbar">
@@ -21,7 +26,14 @@ const Navbar = ({cart, onOrderSubmit, setCart}) => {
                 {cart != null &&
                     <li className="cart" onClick={toggleCart}>Koszyk ({cart.length})</li>}
             </ul>
-            {isCartOpen && (<CartDropdown cart={cart} onClearCart={() => setCart([])} onOrderSubmit={onOrderSubmit}/>)}
+            {isCartOpen && (<CartDropdown
+                cart={cart}
+                onClearCart={() => setCart([])}
+                onDeleteItem={(index) => {
+                    const newCart = cart.filter((item, i) => i !== index);
+                    setCart(newCart);
+                }}
+                onOrderSubmit={onOrderSubmit}/>)}
         </nav>
     );
 };

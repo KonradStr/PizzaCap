@@ -12,7 +12,7 @@ public class MenuToDisplay {
     private String name;
     private String description;
     private String type;
-    private byte[] image;
+    private String image;
     private List<MenuToDisplaySize> sizes;
 
 

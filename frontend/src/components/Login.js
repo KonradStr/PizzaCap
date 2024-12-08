@@ -34,7 +34,7 @@ function Login() {
 
   return (
 
-    <div classname = "app">
+    <div className = "app">
     <Navbar />
 
     <div className = "container" >

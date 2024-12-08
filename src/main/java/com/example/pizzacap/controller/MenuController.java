@@ -21,6 +21,7 @@ public class MenuController {
         return service.getMenu();
     }
 
+    /*
     @GetMapping("/menu_items/{menu_id}/image")
     public ResponseEntity<byte[]> getImageByMenuId(@PathVariable int menu_id) {
         MenuItem menuItem = service.getMenuItem(menu_id);
@@ -31,4 +32,5 @@ public class MenuController {
 
         return ResponseEntity.notFound().build();
     }
+     */
 }
