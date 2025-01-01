@@ -21,7 +21,7 @@ const PizzaCard = ({pizza, onAddToCart}) => {
 
     return (
         <div className="pizza-card">
-            <img src={"https://i.ibb.co/9NXMVtZ/Margherita.jpg"} alt={pizza.name} className="pizza-image" />
+            <img src={pizza.image} alt={pizza.name} className="pizza-image" />
             <div className="pizza-details">
                 <h3>{pizza.menuId}. {pizza.name}</h3>
 
