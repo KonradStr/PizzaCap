@@ -2,6 +2,7 @@ package com.example.pizzacap.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 @Entity
+@NoArgsConstructor
 @Table(name = "restaurants")
 public class Restaurant {
 

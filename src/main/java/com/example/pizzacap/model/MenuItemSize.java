@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
@@ -23,7 +25,7 @@ public class MenuItemSize {
     private MenuItem menuItem;
 
     @Column(name = "item_size")
-    private String item_size;
+    private String itemSize;
 
     @Column(name = "price")
     private double price;
