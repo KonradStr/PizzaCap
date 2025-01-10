@@ -16,7 +16,7 @@ public class MenuItemSize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_size_id")
-    private int menu_size_id;
+    private int menuSizeId;
 
     @ManyToOne
     @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")

@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from 'react';
+"use client";
+import React, {useState, useEffect, useContext} from 'react';
 import {useNavigate } from 'react-router-dom';
 import Navbar from "./Navbar"
 import "../App.css";
+import {CartContext} from "./CartContext";
 
 
 const LocationSelector = () => {
 
+
   const navigate = useNavigate();
   const [locations, setRestaurants] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
+  const {clearCart} = useContext(CartContext);
 
   useEffect(() => {
     fetch('http://localhost:8080/restaurants')
         .then((response) => response.json())
         .then((data) => setRestaurants(data))
         .catch((error) => console.error('Error fetching restaurants:', error));
+
   }, []);
+
 
 
   const handleLocationChange = (e) => {
@@ -24,6 +30,10 @@ const LocationSelector = () => {
 
   const handleSelect = () => {
     if (selectedLocation) {
+      if(localStorage.getItem('selectedLocation') !== selectedLocation){
+        localStorage.setItem('cartId', null);
+        clearCart();
+      }
       localStorage.setItem('selectedLocation', selectedLocation)
       navigate('/menu')
     } else {
@@ -31,10 +41,13 @@ const LocationSelector = () => {
     }
   };
 
+
+
   return (
+
       <div className="app">
 
-        <Navbar />
+          <Navbar/>
         {/* Główna sekcja */}
 
 
@@ -63,6 +76,7 @@ const LocationSelector = () => {
           </div>
         </div>
       </div>
+
   );
 };
 

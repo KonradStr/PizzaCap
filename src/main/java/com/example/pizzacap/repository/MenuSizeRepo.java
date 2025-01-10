@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface MenuSizeRepo extends JpaRepository<MenuItemSize, Integer> {
     List<MenuItemSize> findByMenuItem(MenuItem menuItem);
+
+    MenuItemSize findByMenuSizeId(int menu_size_id);
 }

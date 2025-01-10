@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import DishCard from "./DishCard";
 import "../App.css";
+import { CartContext } from "./CartContext";
 
 {/*
 const pizzas = [
@@ -77,8 +78,9 @@ const pizzas = [
 */}
 
 
-const DishList = ({onAddToCart}) =>{
+const DishList = () =>{
 
+    const { addToCart } = useContext(CartContext);
     const [pizzas, setPizzas] = useState([]);
 
     useEffect(() => {
@@ -92,7 +94,7 @@ const DishList = ({onAddToCart}) =>{
         <div className="menu-grid">
             <div className="pizzas-container">
                 {pizzas.map((pizza) => (
-                    <DishCard key={pizza.menuId} pizza={pizza} onAddToCart={onAddToCart}/>
+                    <DishCard key={pizza.menuId} pizza={pizza} onAddToCart={addToCart}/>
                 ))}
             </div>
         </div>
