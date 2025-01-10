@@ -6,6 +6,7 @@ import Menu from './components/Menu';
 import Home from './components/Home';
 import AdminLogin from './components/AdminLogin'
 import MainAdminMenu from "./components/MainAdminMenu";
+import OrderDetails from "./components/OrderDetails";
 
 function App() {
     return (
@@ -16,7 +17,9 @@ function App() {
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/admin" element={<AdminLogin/>}/>
-                <Route path="/admin/menu" element={<MainAdminMenu/>}/>
+                <Route path="/admin/settings" element={<MainAdminMenu/>}/>
+                <Route path="/zamowienie/:orderId" element={<OrderDetails/>}/>
+
             </Routes>
         </Router>
     );

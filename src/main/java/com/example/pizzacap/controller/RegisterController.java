@@ -31,8 +31,6 @@ public class RegisterController {
             newCustomer.setPhone_number(registerData.getPhone_number());
             newCustomer.setPassword(registerData.getPassword());
             newCustomer.setRegistration_date(LocalDateTime.now());
-            System.out.println(newCustomer);
-            System.out.println(registerData);
             service.registerCustomer(newCustomer);
             return ResponseEntity.ok("Pomyślnie zarejestrowano");
         } else {
