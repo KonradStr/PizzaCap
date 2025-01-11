@@ -61,7 +61,7 @@ const LocationSelector = () => {
             >
               <option value="">-- Wybierz lokal --</option>
               {locations.map((location) => (
-                  <option key={location.restaurant_id} value={location.restaurant_id}>
+                  <option key={location.restaurantId} value={location.restaurantId}>
                     {location.address}
                   </option>
               ))}
