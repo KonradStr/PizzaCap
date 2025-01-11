@@ -35,7 +35,7 @@ public class MenuService {
             List<MenuItemSize> sizesFromRepo = repoMenuSize.findByMenuItem(menuItem);
             for (MenuItemSize menuItemSize : sizesFromRepo) {
                 MenuToDisplay.MenuToDisplaySize tempSize = new MenuToDisplay.MenuToDisplaySize();
-                tempSize.setMenuSizeId(menuItemSize.getMenu_size_id());
+                tempSize.setMenuSizeId(menuItemSize.getMenuSizeId());
                 tempSize.setItemSize(menuItemSize.getItemSize());
                 tempSize.setPrice(menuItemSize.getPrice());
                 tempSizes.add(tempSize);
