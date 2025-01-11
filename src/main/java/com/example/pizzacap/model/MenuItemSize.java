@@ -1,12 +1,15 @@
 package com.example.pizzacap.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
@@ -18,12 +21,13 @@ public class MenuItemSize {
     @Column(name = "menu_size_id")
     private int menuSizeId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")
     private MenuItem menuItem;
 
     @Column(name = "item_size")
-    private String item_size;
+    private String itemSize;
 
     @Column(name = "price")
     private double price;

@@ -16,4 +16,3 @@ public class OrderItemDetail {
     private int quantity;
 
 }
-

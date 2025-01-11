@@ -1,6 +1,5 @@
 package com.example.pizzacap.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

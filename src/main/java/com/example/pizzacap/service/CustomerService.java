@@ -24,5 +24,4 @@ public class CustomerService {
     public Customer validateCustomer(String email, String password) {
         return repo.findByEmailAndPassword(email, password);
     }
-
 }

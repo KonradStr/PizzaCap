@@ -21,6 +21,11 @@ public class MenuController {
         return service.getMenu();
     }
 
+    @GetMapping("/menu_items/{itemId}")
+    public MenuItem getMenuItem(@PathVariable int itemId) {
+        return service.getMenuItem(itemId);
+    }
+
     /*
     @GetMapping("/menu_items/{menu_id}/image")
     public ResponseEntity<byte[]> getImageByMenuId(@PathVariable int menu_id) {

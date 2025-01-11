@@ -16,18 +16,4 @@ public class OrderItemDetailPK implements Serializable {
 
     @Column(name = "menu_size_id")
     private int menuSizeId;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OrderItemDetailPK that = (OrderItemDetailPK) o;
-        return orderId == that.orderId && menuSizeId == that.menuSizeId;
-    }
-
-    @Override
-    public int hashCode() {
-        return 31 * orderId + menuSizeId;
-    }
-
 }
