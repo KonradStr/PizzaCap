@@ -62,6 +62,7 @@ public class CartController {
     public ResponseEntity<String> login(@PathVariable UUID cartId, @RequestBody OrderRequest orderRequest){
         Cart cart = cartService.getCart(cartId);
         System.out.println("cart: " + cart);
+        System.out.println(orderRequest.getRestaurantId());
         if(cart == null){
             return ResponseEntity.status(404).body("Koszyk nie istnieje");
         }else{
@@ -69,7 +70,7 @@ public class CartController {
             Order order = new Order();
             order.setTotal_price(cart.calculateTotalPrice());
             order.setOrder_date(LocalDateTime.now());
-            order.setStatus("Złożone");
+            order.setStatus("Nowe");
             order.setAdditional_note(orderRequest.getAdditionalNote());
             order.setAddress(orderRequest.getAddress());
             Customer customer = customerRepo.findById(Integer.parseInt(orderRequest.getCustomerId())).orElse(null);
