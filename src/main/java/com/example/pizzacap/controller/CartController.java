@@ -1,13 +1,15 @@
 package com.example.pizzacap.controller;
 
-import com.example.pizzacap.model.Cart;
-import com.example.pizzacap.model.CartItem;
-import com.example.pizzacap.model.CartRequest;
+import com.example.pizzacap.model.*;
+import com.example.pizzacap.repository.CustomerRepo;
+import com.example.pizzacap.repository.PaymentRepo;
+import com.example.pizzacap.repository.RestaurantRepo;
 import com.example.pizzacap.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +19,12 @@ import java.util.UUID;
 public class CartController {
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CustomerRepo customerRepo;
+    @Autowired
+    private RestaurantRepo restaurantRepo;
+    @Autowired
+    private PaymentRepo paymentRepo;
 
     @GetMapping("/getID")
     public UUID getID(){
@@ -50,4 +58,50 @@ public class CartController {
                 cartRequest.getItemSize());
     }
 
+    @PostMapping("/{cartId}/order")
+    public ResponseEntity<String> login(@PathVariable UUID cartId, @RequestBody OrderRequest orderRequest){
+        Cart cart = cartService.getCart(cartId);
+        System.out.println("cart: " + cart);
+        if(cart == null){
+            return ResponseEntity.status(404).body("Koszyk nie istnieje");
+        }else{
+
+            Order order = new Order();
+            order.setTotal_price(cart.calculateTotalPrice());
+            order.setOrder_date(LocalDateTime.now());
+            order.setStatus("Złożone");
+            order.setAdditional_note(orderRequest.getAdditionalNote());
+            order.setAddress(orderRequest.getAddress());
+            Customer customer = customerRepo.findById(Integer.parseInt(orderRequest.getCustomerId())).orElse(null);
+            order.setCustomer(customer);
+            Restaurant restaurant = restaurantRepo.findById(Integer.parseInt(orderRequest.getRestaurantId())).orElse(null);
+            order.setRestaurant(restaurant);
+            int orderId = cartService.createOrder(order);
+
+
+            for(CartItem item : cart.getItems()){
+                OrderItemDetail orderItemDetail = new OrderItemDetail();
+                OrderItemDetailPK orderItemDetailPK = new OrderItemDetailPK();
+                orderItemDetailPK.setOrderId(orderId);
+                orderItemDetailPK.setMenuSizeId(item.getSizeId());
+                orderItemDetail.setOrderItemDetailPK(orderItemDetailPK);
+                orderItemDetail.setQuantity(item.getQuantity());
+                System.out.println("Wpisywanie: " + orderItemDetail.getOrderItemDetailPK().getOrderId() + " " + orderItemDetail.getOrderItemDetailPK().getMenuSizeId() + " " + orderItemDetail.getQuantity());
+                cartService.createOrderItems(orderItemDetail);
+            }
+
+            Payments payments = new Payments();
+            payments.setPaymentDate(LocalDateTime.now());
+            payments.setPaymentAmount(order.getTotal_price());
+            payments.setPaymentStatus("Zapłacone");
+            payments.setPaymentMethod(orderRequest.getPaymentMethod());
+            payments.setOrder(order);
+            paymentRepo.save(payments);
+
+        }
+        return ResponseEntity.ok("Zamówienie złożone");
+
+    }
 }
+
+

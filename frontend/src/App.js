@@ -5,6 +5,7 @@ import Register from './components/Register';
 import Menu from './components/Menu';
 import Home from './components/Home';
 import {CartProvider} from "./components/CartContext";
+import OrderSummary from "./components/OrderSummary";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+          <Route path="/ordersummary" element={<OrderSummary />} />
       </Routes>
     </Router>
   );

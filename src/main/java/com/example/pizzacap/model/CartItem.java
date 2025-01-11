@@ -13,7 +13,7 @@ import lombok.Setter;
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long id;
 
     private String name;
     private String size;
@@ -24,7 +24,7 @@ public class CartItem {
     @Override
     public String toString() {
         return "CartItem{" +
-                ", productId=" + productId +
+                ", productId=" + id +
                 ", sizeId=" + sizeId +
                 ", quantity=" + quantity +
                 ", price=" + price +

@@ -1,8 +1,16 @@
 import React from "react";
 import "../App.css";
+import {useNavigate} from "react-router-dom";
 
-const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantity, onOrderSubmit }) => {
+const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantity }) => {
+
+    const navigate = useNavigate();
+    const submitOrder = async () => {
+        navigate("/ordersummary");
+    };
+
     const totalPrice = Math.round(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 100)/100;
+    console.log(cart);
     return (
         <div className="cart-dropdown">
             <div className = "cart-title">
@@ -16,7 +24,7 @@ const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantit
                         {cart.map((item, index) => (
                             <li key={index} className="cart-item">
                                 <div>
-                                    {index + 1}. {item.name} ({item.size}) - {item.price} zł
+                                    {index + 1}. {item.name} ({item.size}) - {item.price} zł{item.id}
                                 </div>
                                 <div className="cart-item-controls">
                                     <button
@@ -29,7 +37,7 @@ const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantit
                         {item.quantity}
                       </span>
                                     <button
-                                        onClick={() => onIncreaseQuantity(item.id, item.size)}
+                                        onClick={() => onIncreaseQuantity(item.id, item.sizeId)}
                                         className="cart-item-btn"
                                     >
                                         +
@@ -42,7 +50,7 @@ const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantit
                     <button onClick={onClearCart} className="clear-cart">
                         Wyczyść koszyk
                     </button>
-                    <button onClick={onOrderSubmit} className="submit-order">
+                    <button onClick={submitOrder} className="submit-order">
                         Złóż zamówienie
                     </button>
                 </div>

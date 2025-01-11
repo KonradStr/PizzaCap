@@ -20,8 +20,15 @@ public class Cart {
 
     private UUID id;
 
-
     private List<CartItem> items;
+
+    public float calculateTotalPrice(){
+        float totalPrice = 0;
+        for(CartItem item : items){
+            totalPrice += (float) item.getPrice();
+        }
+        return totalPrice;
+    }
 
     @Override
     public String toString() {

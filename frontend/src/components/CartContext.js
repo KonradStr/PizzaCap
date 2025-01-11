@@ -27,8 +27,7 @@ export const CartProvider = ({ children }) => {
 
     const syncCartWithAPI = async (itemId, itemSizeId, quantity, newCartId, itemName, itemSize) => {
         try {
-            console.log(cartId)
-            console.log(localStorage.getItem(cartId))
+            console.log("itemId:", itemId)
             if (cartId) {
                 console.log("request", itemId, itemSizeId, quantity, itemName, itemSize);
                 await fetch(`http://localhost:8080/cart/${cartId}/items/${itemId}`, {
@@ -52,6 +51,8 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+
+
     const checkAndSetCartId = async (existingCartId) =>{
         try {
             const response = await fetch(`http://localhost:8080/cart/${existingCartId}`);
@@ -62,6 +63,7 @@ export const CartProvider = ({ children }) => {
             }else{
                 const cartData = JSON.parse((await data).replace(/,$/, ''));
                 console.log(cartData.items);
+                console.log("pobrano", cartData.items);
                 setCart(cartData.items);
 
             }
@@ -108,10 +110,10 @@ export const CartProvider = ({ children }) => {
 
 
 
-    const increaseQuantity = (itemId) => {
+    const increaseQuantity = (itemId, sizeId) => {
         setCart((prevCart) => {
             const updatedCart = prevCart.map((item) => {
-                if (item.id === itemId) {
+                if (item.id === itemId && item.sizeId === sizeId) {
                     const newQuantity = item.quantity + 1;
                     syncCartWithAPI(itemId, item.sizeId, newQuantity, item.name, item.size);
                     return { ...item, quantity: newQuantity };
@@ -173,25 +175,7 @@ export const CartProvider = ({ children }) => {
     };
 
     // Funkcja do przesyłania zamówienia
-    const submitOrder = async () => {
-        try {
-            const response = await fetch("https://example.com/api/order", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ items: cart }),
-            });
-            if (response.ok) {
-                alert("Zamówienie zostało złożone!");
-                clearCart();
-            } else {
-                alert("Błąd podczas składania zamówienia.");
-            }
-        } catch (error) {
-            console.error("Błąd:", error);
-        }
-    };
+
 
     return (
         <CartContext.Provider
@@ -201,7 +185,7 @@ export const CartProvider = ({ children }) => {
                 increaseQuantity,
                 decreaseQuantity,
                 clearCart,
-                submitOrder,
+                setCart,
             }}
         >
             {children}
