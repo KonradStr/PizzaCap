@@ -22,7 +22,7 @@ public class OrderService {
 
         orderInfo.setOrder_id(orderData.getOrder_id());
         orderInfo.setTotal_price(orderData.getTotal_price());
-        orderInfo.setOrder_data(orderData.getOrder_data());
+        orderInfo.setOrder_date(orderData.getOrder_date());
         orderInfo.setStatus(orderData.getStatus());
         orderInfo.setAdditional_note(orderData.getAdditional_note());
         orderInfo.setCustomer_address(orderData.getAddress());

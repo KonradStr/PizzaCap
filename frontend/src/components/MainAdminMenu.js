@@ -187,15 +187,15 @@ const MainAdminMenu = () => {
                             style={styles.input}
                         />
                         <select
-                            name="restaurant_id"
+                            name="restaurantId"
                             onChange={(e) =>
-                                handleInputChange({ target: { name: 'restaurant', value: { restaurant_id: e.target.value } } })
+                                handleInputChange({ target: { name: 'restaurant', value: { restaurantId: e.target.value } } })
                             }
                             style={styles.select}
                         >
                             <option value="">Wybierz restaurację</option>
-                            {restaurants.map(({ restaurant_id, address }) => (
-                                <option key={restaurant_id} value={restaurant_id}>
+                            {restaurants.map(({ restaurantId, address }) => (
+                                <option key={restaurantId} value={restaurantId}>
                                     {address}
                                 </option>
                             ))}

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class OrderInfo {
     private int order_id;
     private double total_price;
-    private LocalDateTime order_data;
+    private LocalDateTime order_date;
     private String status;
     private String additional_note;
     private String customer_address;

@@ -1,16 +1,13 @@
 package com.example.pizzacap.controller;
 
-import com.example.pizzacap.model.Admin;
-import com.example.pizzacap.model.MenuItem;
-import com.example.pizzacap.model.NewRestaurantData;
-import com.example.pizzacap.model.Restaurant;
+import com.example.pizzacap.model.*;
 import com.example.pizzacap.service.AdminSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -60,6 +57,24 @@ public class AdminSettingsController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(401).body("Error");
+        }
+    }
+
+    @GetMapping("/admin/restaurant/{restaurantId}")
+    public List<OrderTicket> getRestaurantActiveOrders(@PathVariable int restaurantId){
+        return service.getRestaurantActiveOrders(restaurantId);
+    }
+
+    @PutMapping("/admin/order/{orderId}/status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable int orderId, @RequestBody Map<String, String> request) {
+        String newStatus = request.get("status");
+
+        try {
+            Order updatedOrder = service.changeOrderStatus(orderId, newStatus);
+            return ResponseEntity.ok(updatedOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(401).body(null);
         }
     }
 }

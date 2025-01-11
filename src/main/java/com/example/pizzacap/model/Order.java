@@ -23,16 +23,8 @@ public class Order {
 
     @CreatedDate
     @Column(name = "order_date")
-    private LocalDateTime order_data;
+    private LocalDateTime order_date;
 
-
-    /* Do panelu z zamówieniami:
-    Nowe - Niebieski (#007bff)
-    W trakcie realizacji - Pomarańczowy (#ff9900)
-    Gotowe do wysyłki - Zielony (#28a745)
-    W drodze - Żółty (#ffc907)
-    Zakończone - Szary (#6c757d)
-     */
     @Column(name = "status")
     private String status;
 
@@ -49,6 +41,4 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "restaurant_id" ,referencedColumnName = "restaurant_id")
     private Restaurant restaurant;
-
-
 }

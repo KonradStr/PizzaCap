@@ -1,5 +1,6 @@
 package com.example.pizzacap.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class MenuItemSize {
     @Column(name = "menu_size_id")
     private int menu_size_id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")
     private MenuItem menuItem;
