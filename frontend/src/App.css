@@ -29,6 +29,10 @@ body, html {
   font-weight: bold;
 }
 
+.navbar .logo:hover {
+  cursor: pointer;
+}
+
 .navbar .nav-links {
   list-style: none;
   display: flex;
@@ -538,4 +542,61 @@ button.submit-order {
 
 button.submit-order:hover {
   background-color: #218838;
+}
+
+/* promotions */
+.promotions-page {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+.promotions-list {
+  margin-top: 20px;
+}
+
+.promotion-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.promotion-item.left {
+  flex-direction: row;
+}
+
+.promotion-item.right {
+  flex-direction: row-reverse;
+}
+
+.promo-image {
+  width: 300px;
+  height: auto;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.promo-details {
+  flex: 1;
+  text-align: left;
+  padding: 10px;
+}
+
+.promo-details h2 {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.promo-details p {
+  color: #666;
+  font-size: 16px;
 }

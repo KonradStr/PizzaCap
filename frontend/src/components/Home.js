@@ -15,6 +15,7 @@ const LocationSelector = () => {
   const {clearCart} = useContext(CartContext);
 
   useEffect(() => {
+    localStorage.removeItem('selectedLocation');
     fetch('http://localhost:8080/restaurants')
         .then((response) => response.json())
         .then((data) => setRestaurants(data))

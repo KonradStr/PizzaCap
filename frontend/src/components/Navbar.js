@@ -3,7 +3,7 @@ import CartDropdown from "./CartDropdown";
 import { CartContext } from "./CartContext";
 import { CartVisibilityContext } from "./CartVisibilityContext";
 import "../App.css";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Navbar = () => {
 
@@ -11,6 +11,7 @@ const Navbar = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartAnimation, setCartAnimation] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const toggleCart = () => {
         setIsCartOpen((prevState) => !prevState);
@@ -28,10 +29,10 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <div className="logo">Pizzeria</div>
+            <div onClick = {()=>{navigate("/")}} className="logo">Pizzeria</div>
             <ul className="nav-links">
-                <li>Menu</li>
-                <li>Promocje</li>
+                <li onClick={() => {navigate("/menu")} }>Menu</li>
+                <li onClick={() => {navigate("/promotions")} }>Promocje</li>
                 <li>Kontakt</li>
                 {location.pathname==="/menu" && (<li className={`cart ${cartAnimation ? "cart-bounce" : ""}`} onClick={toggleCart}>
                     Koszyk ({totalItems})

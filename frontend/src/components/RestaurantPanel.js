@@ -10,6 +10,9 @@ const RestaurantPanel = () => {
     const [selectedStatus, setSelectedStatus] = useState({});
 
     useEffect(() => {
+        setTimeout(function(){
+            window.location.reload(1);
+        }, 60000);
         const fetchOrders = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/admin/restaurant/${restaurantId}`);

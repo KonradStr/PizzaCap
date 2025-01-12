@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {use, useState} from "react";
 import "../App.css";
+import {useNavigate} from "react-router-dom";
 
 const PizzaCard = ({pizza, onAddToCart}) => {
     const [selectedSize, setSelectedSize] = useState(pizza.sizes[0].menuSizeId);
+    const navigate = useNavigate();
 
     const handleSizeChange = (e) => {
         setSelectedSize(Number(e.target.value));
@@ -42,9 +44,13 @@ const PizzaCard = ({pizza, onAddToCart}) => {
                 </div>
                 <p className="pizza-description">{pizza.description}</p>
                 <p className="additional-info">+2 sosy gratis</p>
-                <button onClick={addToCart} className="add-button">
+                {localStorage.getItem('selectedLocation') && (<button onClick={addToCart} className="add-button">
                     Dodaj do koszyka
-                </button>
+                </button>)}
+
+                {!localStorage.getItem('selectedLocation') && (<button onClick={()=>{navigate("/")}} className="add-button">
+                    Wybierz lokalizacje aby zamówić
+                </button>)}
             </div>
         </div>
     );

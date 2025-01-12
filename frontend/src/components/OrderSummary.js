@@ -72,13 +72,16 @@ const OrderSummary = () => {
 
         if(canOrder) {
             try {
-                await fetch(`http://localhost:8080/cart/${localStorage.getItem('cartId')}/order`, {
+                const response = await fetch(`http://localhost:8080/cart/${localStorage.getItem('cartId')}/order`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({additionalNote, address, restaurantId, customerId, paymentMethod}),
                 });
+                const pathToOrder = "/zamowienie/"+await response.json();
+                console.log(pathToOrder);
+                navigate(pathToOrder);
             } catch (error) {
                 console.error("Błąd synchronizacji koszyka:", error);
             }

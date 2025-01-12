@@ -24,7 +24,7 @@ const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantit
                         {cart.map((item, index) => (
                             <li key={index} className="cart-item">
                                 <div>
-                                    {index + 1}. {item.name} ({item.size}) - {item.price} zł{item.id}
+                                    {index + 1}. {item.name} ({item.size}) - {item.price} zł
                                 </div>
                                 <div className="cart-item-controls">
                                     <button

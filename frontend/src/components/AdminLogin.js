@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 function AdminLogin() {
     const [username, setUsername] = useState('');
@@ -14,9 +14,11 @@ function AdminLogin() {
         try {
             const response = await axios.post('http://localhost:8080/admin/login', { username, password });
             console.log('Zalogowano pomyślnie:', response.data);
+            localStorage.setItem('token', response.data);
+            localStorage.setItem('username',username);
             setSuccess('Zalogowano pomyślnie!');
             setError('');
-            setTimeout(() => navigate('/admin/menu'), 2000);
+            setTimeout(() => navigate('/admin/settings'), 2000);
         } catch (error) {
             setError('Błąd logowania');
             setSuccess('');

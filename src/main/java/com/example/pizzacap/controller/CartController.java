@@ -63,6 +63,7 @@ public class CartController {
         Cart cart = cartService.getCart(cartId);
         System.out.println("cart: " + cart);
         System.out.println(orderRequest.getRestaurantId());
+        int orderId;
         if(cart == null){
             return ResponseEntity.status(404).body("Koszyk nie istnieje");
         }else{
@@ -77,7 +78,7 @@ public class CartController {
             order.setCustomer(customer);
             Restaurant restaurant = restaurantRepo.findById(Integer.parseInt(orderRequest.getRestaurantId())).orElse(null);
             order.setRestaurant(restaurant);
-            int orderId = cartService.createOrder(order);
+            orderId = cartService.createOrder(order);
 
 
             for(CartItem item : cart.getItems()){
@@ -100,7 +101,7 @@ public class CartController {
             paymentRepo.save(payments);
 
         }
-        return ResponseEntity.ok("Zamówienie złożone");
+        return ResponseEntity.ok(String.valueOf(orderId));
 
     }
 }

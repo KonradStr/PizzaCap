@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Navbar from "./Navbar";
 
 const OrderDetails = () => {
     const { orderId } = useParams();
     const [order, setOrder] = useState(null);
 
     useEffect(() => {
+        setTimeout(function(){
+            window.location.reload(1);
+        }, 60000);
         const fetchOrderDetails = async () => {
             try {
                 const response = await fetch(`http://localhost:8080/zamowienie/${orderId}`);
@@ -41,12 +45,14 @@ const OrderDetails = () => {
     }
 
     return (
+    <div className="order-detail-container">
+        <Navbar/>
         <div style={styles.container}>
             <div style={styles.card}>
                 <h1>Zamówienie #{order.order_id}</h1>
 
                 <ul style={styles.list}>
-                    <li style={styles.listItem}><strong>Cena całkowita:</strong> {order.total_price} PLN</li>
+                    <li style={styles.listItem}><strong>Cena całkowita:</strong> {Math.round(order.total_price * 100)/100} PLN</li>
                     <li style={styles.listItem}><strong>Data zamówienia:</strong> {new Date(order.order_data).toLocaleString()}</li>
                     <li style={styles.listItem}><strong>Status:</strong> <span style={{ color: getStatusColor(order.status) }}>{order.status}</span></li>
                     <li style={styles.listItem}><strong>Adres dostawy:</strong> {order.customer_address}</li>
@@ -74,6 +80,7 @@ const OrderDetails = () => {
                 )}
             </div>
         </div>
+    </div>
     );
 };
 
