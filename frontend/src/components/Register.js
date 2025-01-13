@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../App.css'
+import Navbar from "./Navbar";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -10,24 +12,48 @@ function Register() {
     phone_number: '',
     password: '',
   });
+
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+
+
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    formData.email = email;
+    formData.first_name = name;
+    formData.password = password;
+    formData.phone_number = phone;
+    formData.last_name = lastname;
 
-    try {
-      const response = await axios.post('http://localhost:8080/register', formData);
+    if(!!email && !! name && !!lastname && !!phone && !!password) {
 
-      if (response.status === 200) {
-        setSuccess('Rejestracja zakończona sukcesem! Możesz się teraz zalogować.');
-        setError('');
-        setTimeout(() => navigate('/'), 2000);
+      try {
+        const response = await axios.post('http://localhost:8080/register', formData);
+
+        if (response.status === 200) {
+          setSuccess('Rejestracja zakończona sukcesem! Możesz się teraz zalogować.');
+          setError('');
+          setTimeout(() => navigate('/'), 2000);
+        }
+      } catch (error) {
+        setError(error.response?.data || 'Wystąpił błąd podczas rejestracji.');
+        setSuccess('');
       }
-    } catch (error) {
+    }else{
+
+      document.getElementById("email").style.border = "1px solid red";
+      document.getElementById("lastname-reg").style.border = "1px solid red";
+      document.getElementById("email-reg").style.border = "1px solid red";
+      document.getElementById("phone-reg").style.border = "1px solid red";
+      document.getElementById("password-reg").style.border = "1px solid red";
       setError(error.response?.data || 'Wystąpił błąd podczas rejestracji.');
-      setSuccess('');
     }
   };
 
@@ -36,145 +62,76 @@ function Register() {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
+      <div >
+        <Navbar/>
+    <div className="container">
+
+      <div className="card">
         <h2>Rejestracja</h2>
         <form onSubmit={handleRegister}>
           <input
             type="text"
-            name="first_name"
-            placeholder="Imię"
-            value={formData.first_name}
-            onChange={handleChange}
-            style={styles.input}
-            required
+            placeholder=" "
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
+            className="input"
+            id="email"
           />
+          <label form = "email" className = "form_label_login">Imie</label>
           <input
             type="text"
-            name="last_name"
-            placeholder="Nazwisko"
-            value={formData.last_name}
-            onChange={handleChange}
-            style={styles.input}
-            required
+            placeholder=" "
+            value={lastname}
+            onChange={(e)=>setLastname(e.target.value)}
+            className="input"
+            id="lastname-reg"
           />
+          <label form = "lastname-reg" className = "form_label_lastname">Nazwisko</label>
           <input
             type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            style={styles.input}
-            required
+            placeholder=" "
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
+            className="input"
+            id="email-reg"
           />
+          <label form = "email-reg" className = "form_label_email-reg">Adres email</label>
           <input
             type="text"
             name="phone_number"
-            placeholder="Numer telefonu"
-            value={formData.phone_number}
-            onChange={handleChange}
-            style={styles.input}
-            required
+            placeholder=" "
+            value={phone}
+            onChange={(e)=>setPhone(e.target.value)}
+            className="input"
+            id="phone-reg"
           />
+          <label form = "phone-reg" className = "form_label_phone-reg">Numer telefonu</label>
           <input
             type="password"
             name="password"
-            placeholder="Hasło"
-            value={formData.password}
-            onChange={handleChange}
-            style={styles.input}
-            required
+            placeholder=" "
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
+            className="input"
+            id = "password-reg"
           />
-          <button type="submit" style={styles.submitButton}>Zarejestruj</button>
+          <label form = "password-reg" className = "form_label_password-reg">Hasło</label>
+          <button type="submit" className="submitButton">Zarejestruj</button>
         </form>
 
-        {error && <p style={styles.error}>{error}</p>}
-        {success && <p style={styles.success}>{success}</p>}
+        {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
 
-        <div style={styles.footer}>
-          <button onClick={() => navigate('/login')} style={styles.linkButton}>
+        <div className="footer">
+          <button onClick={() => navigate('/login')} className="linkButton">
             Przejdź do logowania
-          </button>
-        </div>
-
-        <div style={styles.homeButtonContainer}>
-          <button onClick={() => navigate('/')} style={styles.homeButton}>
-            Home
           </button>
         </div>
       </div>
     </div>
+    </div>
   );
 }
 
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f0f0',
-  },
-  card: {
-    backgroundColor: '#fff',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-    textAlign: 'center',
-    width: '400px',
-  },
-  input: {
-    width: '100%',
-    padding: '10px',
-    margin: '10px 0',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-    fontSize: '16px',
-    boxSizing: 'border-box',
-  },
-  submitButton: {
-    padding: '10px 20px',
-    backgroundColor: '#4CAF50',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width: '100%',
-    marginTop: '10px',
-  },
-  error: {
-    color: 'red',
-    marginTop: '10px',
-  },
-  success: {
-    color: 'green',
-    marginTop: '10px',
-  },
-  footer: {
-    marginTop: '10px',
-  },
-  linkButton: {
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width: '100%',
-  },
-  homeButtonContainer: {
-    marginTop: '20px',
-    textAlign: 'center',
-  },
-  homeButton: {
-    padding: '10px 20px',
-    backgroundColor: '#4CAF50',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width: '100%',
-  },
-};
 
 export default Register;

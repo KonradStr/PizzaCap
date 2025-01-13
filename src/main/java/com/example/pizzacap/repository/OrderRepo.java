@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Integer> {
     List<Order> findByRestaurant_RestaurantId(int restaurantId);
+
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
 
@@ -18,7 +18,9 @@ function AdminLogin() {
             localStorage.setItem('username',username);
             setSuccess('Zalogowano pomyślnie!');
             setError('');
-            setTimeout(() => navigate('/admin/settings'), 2000);
+            setTimeout( 2000);
+            console.log(localStorage.getItem('token'));
+            navigate('/admin/settings')
         } catch (error) {
             setError('Błąd logowania');
             setSuccess('');

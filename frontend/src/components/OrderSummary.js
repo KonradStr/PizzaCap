@@ -15,6 +15,7 @@ const OrderSummary = () => {
         lastName: "",
         address: "",
         phone: "",
+        additionalNote: "",
     });
 
     const [paymentMethod, setPaymentMethod] = useState("");
@@ -44,7 +45,7 @@ const OrderSummary = () => {
     };
 
     const handleOrderSubmit = async () => {
-        const { firstName, lastName, address, phone } = userData;
+        const { firstName, lastName, address, phone ,additionalNote} = userData;
         let canOrder = true;
         if(!firstName){
             document.getElementById("name").style.border = "1px solid red";
@@ -66,9 +67,8 @@ const OrderSummary = () => {
             alert("Wybierz metodę płatności");
             canOrder = false;
         }
-        const additionalNote = "asdf";
         const restaurantId = localStorage.getItem('selectedLocation');
-        const customerId = 1;
+        const customerId = localStorage.getItem('userId');
 
         if(canOrder) {
             try {
@@ -150,6 +150,15 @@ const OrderSummary = () => {
                             type="text"
                             name="phone"
                             value={userData.phone}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Dodatkowe informacje:
+                        <input
+                            type="text"
+                            name="additionalNote"
+                            value={userData.additionalNote}
                             onChange={handleInputChange}
                         />
                     </label>

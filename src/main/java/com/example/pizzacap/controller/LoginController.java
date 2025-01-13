@@ -21,16 +21,21 @@ public class LoginController {
     TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<TokenAuth> login(@RequestBody LoginRequest loginRequest) {
         Customer validCustomer = service.validateCustomer(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (Objects.nonNull(validCustomer)) {
-            return ResponseEntity.ok("Zalogowano pomyślnie");
+            String token = tokenService.generateNewUserToken(validCustomer.getCustomer_id());
+            TokenAuth tokenAuth = new TokenAuth();
+            tokenAuth.setToken(token);
+            tokenAuth.setUsername(String.valueOf(validCustomer.getCustomer_id()));
+            return ResponseEntity.ok(tokenAuth);
         } else {
-            return ResponseEntity.status(401).body("Niepoprawny email lub hasło");
-
+            return ResponseEntity.status(401).body(new TokenAuth());
         }
     }
+
+
     @PostMapping("/admin/login")
     public ResponseEntity<String> adminLogin(@RequestBody AdminLoginRequest loginRequest) {
         Admin validAdmin = adminService.validateAdmin(loginRequest.getUsername(), loginRequest.getPassword());

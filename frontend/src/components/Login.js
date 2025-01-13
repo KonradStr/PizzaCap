@@ -12,19 +12,30 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log('a a a: ', email, password);
+    if(!!email && !!password) {
+      console.log("benito");
+      try {
+        const response = await axios.post('http://localhost:8080/login', {
+          email,
+          password,
+        });
 
-    try {
-      const response = await axios.post('http://localhost:8080/login', {
-        email,
-        password,
-      });
-
-      if (response.status === 200) {
-        navigate('/menu');
+        if (response.status === 200) {
+          navigate('/menu');
+          localStorage.setItem('userId', response.data.username);
+          localStorage.setItem('token', response.data.token);
+        }
+      } catch (error) {
+        setError(
+            error.response?.data || 'Wystąpił błąd podczas logowania.'
+        );
+        document.getElementById("email").style.border = "1px solid red";
+        document.getElementById("password").style.border = "1px solid red";
       }
-    } catch (error) {
+    }else{
       setError(
-        error.response?.data || 'Wystąpił błąd podczas logowania.'
+          error.response?.data || 'Wystąpił błąd podczas logowania.'
       );
       document.getElementById("email").style.border = "1px solid red";
       document.getElementById("password").style.border = "1px solid red";
@@ -73,11 +84,6 @@ function Login() {
           </button>
         </div>
 
-        <div className = "homeButtonContainer">
-          <button onClick={() => navigate('/')} className = "homeButton">
-            Home
-          </button>
-        </div>
       </div>
     </div>
     </div>

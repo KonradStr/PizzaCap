@@ -12,6 +12,7 @@ import RestaurantPanel from "./RestaurantPanel";
 import axios from "axios";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
+import UserDashboard from "./UserDashboard";
 
 const checkToken =  async (username, token) => {
     const response = await fetch(`http://localhost:8080/admin/token`, {
@@ -32,12 +33,19 @@ const isAuthenticated = async (username, token) => {
     return status === 200;
 }
 
+const isLoggedIn = () =>{
+    console.log("zalogowany? -> ", localStorage.getItem('userId'))
+    return !!localStorage.getItem('userId');
+}
+
 const AppRouter = () => {
     const [authenticated, setAuthenticated] = useState(null); // stan dla autentyczności
+    const [loggedIn, setLoggedIn] = useState(null);
 
     useEffect(() => {
         const username = localStorage.getItem("username");
         const token = localStorage.getItem("token");
+
 
         if (username && token) {
             isAuthenticated(username, token).then((authStatus) => {
@@ -46,6 +54,8 @@ const AppRouter = () => {
         } else {
             setAuthenticated(false); // Brak tokenu lub username oznacza brak autentyczności
         }
+
+
     }, []); // uruchom raz przy renderowaniu komponentu
 
     if (authenticated === null) {
@@ -79,11 +89,6 @@ const AppRouter = () => {
             index: true,
         },
         {
-            path: "/ordersummary",
-            element: <OrderSummary />,
-            index: true,
-        },
-        {
             path: "/promotions",
             element: <PromotionsPage />,
             index: true,
@@ -93,7 +98,20 @@ const AppRouter = () => {
             element: <OrderDetails />,
         },
         {
-            element: <ProtectedRoute isAuthenticated={authenticated} />, // Przekazywanie statusu autentyczności
+            path: "/userdashboard",
+            element: <UserDashboard />,
+        },
+        {
+            element: <ProtectedRoute isAuthenticated={isLoggedIn} redirectPath='/login' />,
+            children:[
+                {
+                    path: "/ordersummary",
+                    element: <OrderSummary />,
+                }
+            ]
+        },
+        {
+            element: <ProtectedRoute isAuthenticated={authenticated} redirectPath='/admin'/>, // Przekazywanie statusu autentyczności
             children: [
                 {
                     path: "/admin/settings",

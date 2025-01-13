@@ -53,7 +53,7 @@ const OrderDetails = () => {
 
                 <ul style={styles.list}>
                     <li style={styles.listItem}><strong>Cena całkowita:</strong> {Math.round(order.total_price * 100)/100} PLN</li>
-                    <li style={styles.listItem}><strong>Data zamówienia:</strong> {new Date(order.order_data).toLocaleString()}</li>
+                    <li style={styles.listItem}><strong>Data zamówienia:</strong> {new Date(order.order_date).toLocaleString()}</li>
                     <li style={styles.listItem}><strong>Status:</strong> <span style={{ color: getStatusColor(order.status) }}>{order.status}</span></li>
                     <li style={styles.listItem}><strong>Adres dostawy:</strong> {order.customer_address}</li>
                 </ul>

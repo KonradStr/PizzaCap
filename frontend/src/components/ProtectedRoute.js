@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-const ProtectedRoute =  ({ isAuthenticated }) => {
+const ProtectedRoute =  ({ isAuthenticated, redirectPath }) => {
     if (!isAuthenticated) {
-        console.log("redirect");
-        return <Navigate to="/admin" replace />;
+        console.log("redirect", redirectPath);
+        return <Navigate to={redirectPath} replace />;
     }
 
     return <Outlet />;

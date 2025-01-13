@@ -50,9 +50,12 @@ const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantit
                     <button onClick={onClearCart} className="clear-cart">
                         Wyczyść koszyk
                     </button>
-                    <button onClick={submitOrder} className="submit-order">
+                    {localStorage.getItem('userId') && (<button onClick={submitOrder} className="submit-order">
                         Złóż zamówienie
-                    </button>
+                    </button>)}
+                    {!localStorage.getItem('userId') && (<button onClick={() => {navigate("/login")}} className="submit-order">
+                        Zaloguj aby złożyć zamówienie
+                    </button>)}
                 </div>
             )}
         </div>

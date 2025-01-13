@@ -31,6 +31,8 @@ const Navbar = () => {
         <nav className="navbar">
             <div onClick = {()=>{navigate("/")}} className="logo">Pizzeria</div>
             <ul className="nav-links">
+                {!localStorage.getItem('userId') && (<li onClick={()=>{navigate("/login")} }>Zaloguj się</li>)}
+                {localStorage.getItem('userId') && (<li onClick={()=>{navigate("/userdashboard")} }>Konto</li>)}
                 <li onClick={() => {navigate("/menu")} }>Menu</li>
                 <li onClick={() => {navigate("/promotions")} }>Promocje</li>
                 <li>Kontakt</li>
