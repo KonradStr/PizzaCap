@@ -20,12 +20,13 @@ public class MenuService {
     MenuSizeRepo repoMenuSize;
 
     public List<MenuToDisplay> getMenu() {
-        List<MenuItem> menuItems = repoMenu.findAll();
+        List<MenuItem> menuItems = repoMenu.findAllByOrderByMenuId();
+//        List<MenuItem> menuItems = repoMenu.findAll();
         List<MenuToDisplay> menuToDisplays = new ArrayList<>();
 
         for (MenuItem menuItem : menuItems) {
             MenuToDisplay temp = new MenuToDisplay();
-            temp.setMenuId(menuItem.getMenu_id());
+            temp.setMenuId(menuItem.getMenuId());
             temp.setName(menuItem.getName());
             temp.setDescription(menuItem.getDescription());
             temp.setType(menuItem.getType());

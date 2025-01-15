@@ -20,7 +20,7 @@ public class MenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id")
-    private int menu_id;
+    private int menuId;
 
     @Column(name = "name")
     private String name;

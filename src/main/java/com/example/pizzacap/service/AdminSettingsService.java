@@ -84,7 +84,7 @@ public class AdminSettingsService {
                 MenuItemSize menuItemSize = menuSizeRepo.findById(orderItemDetail.getOrderItemDetailPK().getMenuSizeId()).orElse(null);
 
                 if (menuItemSize != null) {
-                    MenuItem menuItem = menuRepo.findById(menuItemSize.getMenuItem().getMenu_id()).orElse(null);
+                    MenuItem menuItem = menuRepo.findById(menuItemSize.getMenuItem().getMenuId()).orElse(null);
                     if (menuItem != null) {
                         OrderTicketPosition position = new OrderTicketPosition();
                         position.setName(menuItem.getName());

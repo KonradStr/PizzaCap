@@ -40,5 +40,4 @@ public class Customer {
     @CreatedDate
     @Column(name = "registration_date")
     private LocalDateTime registration_date;
-
 }
