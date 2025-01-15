@@ -3,16 +3,20 @@ package com.example.pizzacap.controller;
 
 import com.example.pizzacap.model.Customer;
 import com.example.pizzacap.model.CustomerDetail;
+import com.example.pizzacap.model.OrderTicket;
 import com.example.pizzacap.model.TokenAuth;
 import com.example.pizzacap.repository.CustomerRepo;
 import com.example.pizzacap.service.AdminService;
 import com.example.pizzacap.service.CustomerService;
+import com.example.pizzacap.service.OrderService;
 import com.example.pizzacap.service.TokenService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -24,6 +28,9 @@ public class CustomerController {
     TokenService tokenService;
     @Autowired
     CustomerRepo customerRepo;
+
+    @Autowired
+    OrderService orderService;
 
     @PostMapping("/getUserData")
     public ResponseEntity<CustomerDetail> getCustomerDetail(@RequestBody TokenAuth tokenAuth){
@@ -42,5 +49,10 @@ public class CustomerController {
         } else {
             return ResponseEntity.status(401).body(new CustomerDetail());
         }
+    }
+
+    @GetMapping("/customer/{customerId}/orders")
+    public List<OrderTicket> getUserOrdersHistory(@PathVariable int customerId) {
+        return orderService.getUserOrdersHistory(customerId);
     }
 }

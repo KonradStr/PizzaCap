@@ -25,10 +25,10 @@ public class LoginController {
         Customer validCustomer = service.validateCustomer(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (Objects.nonNull(validCustomer)) {
-            String token = tokenService.generateNewUserToken(validCustomer.getCustomer_id());
+            String token = tokenService.generateNewUserToken(validCustomer.getCustomerId());
             TokenAuth tokenAuth = new TokenAuth();
             tokenAuth.setToken(token);
-            tokenAuth.setUsername(String.valueOf(validCustomer.getCustomer_id()));
+            tokenAuth.setUsername(String.valueOf(validCustomer.getCustomerId()));
             return ResponseEntity.ok(tokenAuth);
         } else {
             return ResponseEntity.status(401).body(new TokenAuth());

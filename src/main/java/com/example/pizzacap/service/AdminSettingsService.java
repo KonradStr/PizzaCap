@@ -38,7 +38,7 @@ public class AdminSettingsService {
         adminRepo.save(admin);
     }
 
-    public void createAdminManagerAccount(Admin admin){
+    public void createAdminManagerAccount(Admin admin) {
         adminRepo.save(admin);
     }
 
@@ -85,7 +85,7 @@ public class AdminSettingsService {
 
                 if (menuItemSize != null) {
                     MenuItem menuItem = menuRepo.findById(menuItemSize.getMenuItem().getMenu_id()).orElse(null);
-                    if (menuItem != null){
+                    if (menuItem != null) {
                         OrderTicketPosition position = new OrderTicketPosition();
                         position.setName(menuItem.getName());
                         position.setItem_size(menuItemSize.getItemSize());
@@ -99,7 +99,6 @@ public class AdminSettingsService {
 
             orderTicketList.add(orderTicket);
         }
-
 
         return orderTicketList;
     }

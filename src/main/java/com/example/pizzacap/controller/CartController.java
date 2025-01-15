@@ -59,7 +59,7 @@ public class CartController {
     }
 
     @PostMapping("/{cartId}/order")
-    public ResponseEntity<String> login(@PathVariable UUID cartId, @RequestBody OrderRequest orderRequest){
+    public ResponseEntity<String> placeOrder(@PathVariable UUID cartId, @RequestBody OrderRequest orderRequest){
         Cart cart = cartService.getCart(cartId);
         System.out.println("cart: " + cart);
         System.out.println(orderRequest.getRestaurantId());
