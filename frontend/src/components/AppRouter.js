@@ -29,12 +29,10 @@ const checkToken =  async (username, token) => {
 
 const isAuthenticated = async (username, token) => {
     const status = await checkToken(username, token);
-    console.log('status', status);
     return status === 200;
 }
 
 const isLoggedIn = () =>{
-    console.log("zalogowany? -> ", localStorage.getItem('userId'))
     return !!localStorage.getItem('userId');
 }
 
@@ -43,6 +41,7 @@ const AppRouter = () => {
     const [loggedIn, setLoggedIn] = useState(null);
 
     useEffect(() => {
+        console.log("checking auth");
         const username = localStorage.getItem("username");
         const token = localStorage.getItem("token");
 
@@ -56,7 +55,7 @@ const AppRouter = () => {
         }
 
 
-    }, [localStorage.getItem('token')]); // uruchom raz przy renderowaniu komponentu
+    }, ); // uruchom raz przy renderowaniu komponentu
 
     if (authenticated === null) {
         return <div>Loading...</div>;
@@ -85,7 +84,7 @@ const AppRouter = () => {
         },
         {
             path: "/admin",
-            element: <AdminLogin />,
+            element: <AdminLogin setAuthenticated={setAuthenticated}/>,
             index: true,
         },
         {

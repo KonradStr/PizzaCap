@@ -164,6 +164,7 @@ body, html {
   font-size: 0.9rem;
   color: #555;
   margin: 10px 0;
+  min-height: 30px;
 }
 
 .pizza-select {

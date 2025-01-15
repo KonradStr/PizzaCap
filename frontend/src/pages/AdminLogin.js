@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
+import restaurantPanel from "./RestaurantPanel";
 
-function AdminLogin() {
+function AdminLogin({setAuthenticated}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -18,21 +19,14 @@ function AdminLogin() {
             localStorage.setItem('username',username);
             setSuccess('Zalogowano pomyślnie!');
             setError('');
-            console.log('tokenik', localStorage.getItem('token'));
-            window.location.reload(1);
+            setAuthenticated(true);
+            navigate('/admin/settings')
         } catch (error) {
             setError('Błąd logowania');
             setSuccess('');
         }
     };
 
-    useEffect(() => {
-        if (localStorage.getItem('token') && localStorage.getItem('username'))
-        {
-            console.log('reload')
-            navigate('/admin/settings')
-        }
-    },[])
 
     return (
         <div style={styles.container}>
