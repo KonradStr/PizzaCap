@@ -1,5 +1,5 @@
 import React, {use, useState} from "react";
-import "../App.css";
+import "../assets/App.css";
 import {useNavigate} from "react-router-dom";
 
 const PizzaCard = ({pizza, onAddToCart}) => {

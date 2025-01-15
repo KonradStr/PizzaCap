@@ -31,7 +31,7 @@ public class LoginController {
             tokenAuth.setUsername(String.valueOf(validCustomer.getCustomerId()));
             return ResponseEntity.ok(tokenAuth);
         } else {
-            return ResponseEntity.status(401).body(new TokenAuth());
+            return ResponseEntity.status(401).body(null);
         }
     }
 

@@ -1,18 +1,18 @@
-import Home from "./Home";
-import Menu from "./Menu";
-import Login from "./Login";
-import Register from "./Register";
+import Home from "../pages/Home";
+import Menu from "../pages/Menu";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 import React, {useEffect, useState} from "react";
-import AdminLogin from "./AdminLogin";
-import OrderSummary from "./OrderSummary";
-import PromotionsPage from "./PromotionsPage";
-import OrderDetails from "./OrderDetails";
-import MainAdminMenu from "./MainAdminMenu";
-import RestaurantPanel from "./RestaurantPanel";
+import AdminLogin from "../pages/AdminLogin";
+import OrderSummary from "../pages/OrderSummary";
+import PromotionsPage from "../pages/PromotionsPage";
+import OrderDetails from "../pages/OrderDetails";
+import MainAdminMenu from "../pages/MainAdminMenu";
+import RestaurantPanel from "../pages/RestaurantPanel";
 import axios from "axios";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import UserDashboard from "./UserDashboard";
+import UserDashboard from "../pages/UserDashboard";
 
 const checkToken =  async (username, token) => {
     const response = await fetch(`http://localhost:8080/admin/token`, {
@@ -56,7 +56,7 @@ const AppRouter = () => {
         }
 
 
-    }, []); // uruchom raz przy renderowaniu komponentu
+    }, [localStorage.getItem('token')]); // uruchom raz przy renderowaniu komponentu
 
     if (authenticated === null) {
         return <div>Loading...</div>;

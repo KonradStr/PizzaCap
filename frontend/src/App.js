@@ -1,16 +1,16 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, RouterProvider, Routes} from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register'; 
-import Menu from './components/Menu';
-import Home from './components/Home';
-import AdminLogin from './components/AdminLogin'
-import MainAdminMenu from "./components/MainAdminMenu";
-import OrderDetails from "./components/OrderDetails";
-import RestaurantPanel from "./components/RestaurantPanel"
-import {CartProvider} from "./components/CartContext";
-import OrderSummary from "./components/OrderSummary";
-import PromotionsPage from "./components/PromotionsPage";
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Menu from './pages/Menu';
+import Home from './pages/Home';
+import AdminLogin from './pages/AdminLogin'
+import MainAdminMenu from "./pages/MainAdminMenu";
+import OrderDetails from "./pages/OrderDetails";
+import RestaurantPanel from "./pages/RestaurantPanel"
+import {CartProvider} from "./context/CartContext";
+import OrderSummary from "./pages/OrderSummary";
+import PromotionsPage from "./pages/PromotionsPage";
 import {router} from './components/AppRouter';
 import AppRouter from "./components/AppRouter";
 

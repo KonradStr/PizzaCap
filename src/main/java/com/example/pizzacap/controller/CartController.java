@@ -70,7 +70,7 @@ public class CartController {
 
             Order order = new Order();
             order.setTotal_price(cart.calculateTotalPrice());
-            order.setOrder_date(LocalDateTime.now());
+            order.setOrderDate(LocalDateTime.now());
             order.setStatus("Nowe");
             order.setAdditional_note(orderRequest.getAdditionalNote());
             order.setAddress(orderRequest.getAddress());

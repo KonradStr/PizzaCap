@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from "react";
 import DishCard from "./DishCard";
-import "../App.css";
-import { CartContext } from "./CartContext";
+import "../assets/App.css";
+import { CartContext } from "../context/CartContext";
 
 {/*
 const pizzas = [

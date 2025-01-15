@@ -26,7 +26,7 @@ public class Order {
 
     @CreatedDate
     @Column(name = "order_date")
-    private LocalDateTime order_date;
+    private LocalDateTime orderDate;
 
     @Column(name = "status")
     private String status;

@@ -73,7 +73,7 @@ public class AdminSettingsService {
         for (Order order : restaurantOrders) {
             OrderTicket orderTicket = new OrderTicket();
             orderTicket.setOrder_id(order.getOrder_id());
-            orderTicket.setOrder_date(order.getOrder_date());
+            orderTicket.setOrder_date(order.getOrderDate());
             orderTicket.setStatus(order.getStatus());
             orderTicket.setAdditional_note(order.getAdditional_note());
             List<OrderTicketPosition> orderTicketPositions = new ArrayList<>();

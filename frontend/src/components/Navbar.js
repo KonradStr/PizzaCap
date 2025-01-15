@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import CartDropdown from "./CartDropdown";
-import { CartContext } from "./CartContext";
-import { CartVisibilityContext } from "./CartVisibilityContext";
-import "../App.css";
+import { CartContext } from "../context/CartContext";
+import { CartVisibilityContext } from "../context/CartVisibilityContext";
+import "../assets/App.css";
 import {useLocation, useNavigate} from "react-router-dom";
 
 const Navbar = () => {

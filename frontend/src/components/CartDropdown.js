@@ -1,5 +1,5 @@
 import React from "react";
-import "../App.css";
+import "../assets/App.css";
 import {useNavigate} from "react-router-dom";
 
 const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantity }) => {
@@ -37,7 +37,12 @@ const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantit
                         {item.quantity}
                       </span>
                                     <button
-                                        onClick={() => onIncreaseQuantity(item.id, item.sizeId)}
+                                        onClick={() => {
+                                            item.quantity <= 9 ?
+                                            onIncreaseQuantity(item.id, item.sizeId):
+                                            alert("Maksymalna ilość produktu to 10");
+                                        }
+                                    }
                                         className="cart-item-btn"
                                     >
                                         +
@@ -46,7 +51,7 @@ const CartDropdown = ({ cart, onClearCart, onIncreaseQuantity, onDecreaseQuantit
                             </li>
                         ))}
                     </ul>
-                    <h1>Suma: {totalPrice}</h1>
+                    <h1>Suma: {totalPrice} zł</h1>
                     <button onClick={onClearCart} className="clear-cart">
                         Wyczyść koszyk
                     </button>

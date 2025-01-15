@@ -6,6 +6,8 @@ import com.example.pizzacap.repository.MenuSizeRepo;
 import com.example.pizzacap.repository.OrderItemDetailRepo;
 import com.example.pizzacap.repository.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class OrderService {
 
         orderInfo.setOrder_id(orderData.getOrder_id());
         orderInfo.setTotal_price(orderData.getTotal_price());
-        orderInfo.setOrder_date(orderData.getOrder_date());
+        orderInfo.setOrder_date(orderData.getOrderDate());
         orderInfo.setStatus(orderData.getStatus());
         orderInfo.setAdditional_note(orderData.getAdditional_note());
         orderInfo.setCustomer_address(orderData.getAddress());
@@ -51,13 +53,13 @@ public class OrderService {
     }
 
     public List<OrderTicket> getUserOrdersHistory(int customerId) {
-        List<Order> userOrders = orderRepo.findByCustomer_CustomerId(customerId);
+        List<Order> userOrders = orderRepo.findByCustomer_CustomerIdOrderByOrderDateDesc(customerId, PageRequest.of(0, 5));
         List<OrderTicket> orderTicketList = new ArrayList<>();
 
         for (Order order : userOrders) {
             OrderTicket orderTicket = new OrderTicket();
             orderTicket.setOrder_id(order.getOrder_id());
-            orderTicket.setOrder_date(order.getOrder_date());
+            orderTicket.setOrder_date(order.getOrderDate());
             orderTicket.setStatus(order.getStatus());
             orderTicket.setAdditional_note(order.getAdditional_note());
             List<OrderTicketPosition> orderTicketPositions = new ArrayList<>();
